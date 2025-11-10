@@ -9,6 +9,7 @@ import { Client } from "@gradio/client";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+const SPACE_ID = process.env.SPACE_ID;
 
 export async function POST(req: NextRequest) {
   console.log("📥 [START] File upload received");
@@ -79,7 +80,7 @@ export async function POST(req: NextRequest) {
 
     // Send to Gradio translation model
     console.log("🚀 Sending to translation model...");
-    const client = await Client.connect("jnguyen2575/small-100-translate");
+    const client = await Client.connect(SPACE_ID!);
     const result = await client.predict("/predict", {
       text: extractedText,
       target_language_code: targetLanguage,

@@ -1,8 +1,7 @@
 import { NextRequest } from "next/server";
 import { Client } from "@gradio/client";
 
-const SPACE_ID = "jnguyen2575/small-100-translate";
-
+const SPACE_ID = process.env.SPACE_ID;
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { text, targetLanguage } = body;
@@ -16,7 +15,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const client = await Client.connect(SPACE_ID);
+    const client = await Client.connect(SPACE_ID!);
 
     const result = await client.predict("/predict", {
       text,
