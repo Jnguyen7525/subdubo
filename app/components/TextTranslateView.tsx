@@ -1,7 +1,7 @@
 // TextTranslateView.tsx
 // Handles text input, translation, and output display
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   inputText: string;
@@ -22,8 +22,10 @@ const TextTranslateView = ({
 }: Props) => {
   const controller = new AbortController();
   const signal = controller.signal;
+  const [loading, setLoading] = useState(false);
 
   const handleTranslation = async (value: string) => {
+    setLoading(true);
     try {
       const response = await fetch("/api/translate", {
         method: "POST",
@@ -38,6 +40,8 @@ const TextTranslateView = ({
       setTranslatedText(data.translatedText);
     } catch (error) {
       setTranslatedText("Translation error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +86,7 @@ const TextTranslateView = ({
       </div>
 
       <div className="mt-4 bg-[#121435] text-white w-full h-[200px] sm:h-[300px] rounded-md p-2 relative">
-        {translatedText || "Translation"}
+        {loading ? "Translating..." : translatedText || "Translation"}
       </div>
     </div>
   );
