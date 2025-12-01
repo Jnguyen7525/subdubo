@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextTranslateView from "./TextTranslateView";
 import FileTranslateView from "./FileTranslateView";
 import LanguageDropdown from "./LanguageDropdown";
 import { small100Languages } from "@/languageList";
+import ImageTranslateView from "./ImageTranslateView";
 
 function Translator() {
   // Language selection state
@@ -24,6 +25,7 @@ function Translator() {
   // Tab switching handlers
   const textTab = () => setTab(0);
   const fileTab = () => setTab(1);
+  const imageTab = () => setTab(2);
 
   // Dropdown toggles
   const chooseSourceLanguage = () => {
@@ -34,6 +36,10 @@ function Translator() {
     setShowTargetLanguages(!showTargetLanguages);
     setShowSourceLanguages(false);
   };
+
+  useEffect(() => {
+    setTranslatedText("");
+  }, [tab]);
 
   return (
     <div className="bg-white w-full flex flex-col space-y-5">
@@ -69,13 +75,21 @@ function Translator() {
             >
               File
             </button>
+            <button
+              onClick={imageTab}
+              className="relative px-1 rounded-xl cursor-pointer text-[#121435] hover:text-[#ff5722] transition-colors duration-200 ease-in-out"
+            >
+              Image
+            </button>
 
             {/* Animated underline */}
             <div
               className={`absolute bottom-0 h-0.5 bg-[#ff5722] transition-all duration-200 ease-in-out`}
               style={{
-                width: "40px",
-                transform: `translateX(${tab === 0 ? "0px" : "45px"})`,
+                width: "48px",
+                transform: `translateX(${
+                  tab === 0 ? "0px" : tab === 1 ? "45px" : "98px"
+                })`,
               }}
             />
           </div>
@@ -92,10 +106,16 @@ function Translator() {
               targetLanguage={targetLanguage}
               languageDictionary={small100Languages}
             />
-          ) : (
+          ) : tab === 1 ? (
             <FileTranslateView
               targetLanguage={small100Languages[targetLanguage]}
               setTranslatedText={setTranslatedFile}
+            />
+          ) : (
+            <ImageTranslateView
+              targetLanguage={small100Languages[targetLanguage]}
+              translatedText={translatedText}
+              setTranslatedText={setTranslatedText}
             />
           )}
         </div>
