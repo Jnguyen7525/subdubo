@@ -1,6 +1,7 @@
 # Document Translator App
 
 A web application that allows users to **translate text and documents** into different languages with ease. Built using **Next.js**, this app provides a simple drag-and-drop interface for uploading files, previewing translations, and downloading translated content.
+**Live Demo:** [https://main.d3nh7wdtl5od5a.amplifyapp.com/](https://main.d3nh7wdtl5od5a.amplifyapp.com/)
 
 ---
 
