@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     // Call your FastAPI backend instead of Hugging Face
     const response = await fetch(
       // process.env.SMALL100_API_URL || "http://localhost:9090/translate",
-      "http://44.222.231.176:9090/translate",
+      // "http://44.222.231.176:9090/translate",
+      "https://rs1n7y2j6k.execute-api.us-east-1.amazonaws.com/translate",
 
       {
         method: "POST",
