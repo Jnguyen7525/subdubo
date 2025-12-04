@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+transformers
+torch
+sentencepiece
+python-multipart   
+pdfminer.six       
+mammoth            
