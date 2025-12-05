@@ -12,10 +12,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const apiUrl = process.env.SMALL100_API_URL;
+  if (!apiUrl) {
+    console.error("SMALL100_API_URL is undefined");
+    return new Response("Server misconfiguration", { status: 500 });
+  }
+
   try {
     // Call your FastAPI backend instead of Hugging Face
     const response = await fetch(
-      process.env.SMALL100_API_URL!,
+      apiUrl,
 
       {
         method: "POST",
